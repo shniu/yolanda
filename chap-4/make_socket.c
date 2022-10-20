@@ -24,10 +24,28 @@ int make_socket(uint16_t port) {
         exit(EXIT_FAILURE);
     }
 
+    // listen on the socket
+    if (listen(sock, 100) < 0) {
+        perror("listen");
+        exit(EXIT_FAILURE);
+    }
+
+    struct sockaddr_in client_addr;
+    socklen_t client_len = sizeof(client_addr);
+
+    int connfd;
+    if ((connfd = accept(sock, (struct sockaddr *) &client_addr, &client_len)) < 0) {
+        perror("accept");
+        exit(EXIT_FAILURE);
+    }
+
+    printf("connfd = %d \n", connfd);
+
     return sock;
 }
 
 int main(int argc, char **argv) {
     int sockfd = make_socket(12345);
+    printf("Local listen sock fd is %d \n", sockfd);
     exit(0);
 }
