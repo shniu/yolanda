@@ -102,6 +102,7 @@ int tcp_nonblocking_server_listen(int port) {
 }
 
 void make_nonblocking(int fd) {
+    // 把 fd 设置为 非阻塞模式
     fcntl(fd, F_SETFL, O_NONBLOCK);
 }
 

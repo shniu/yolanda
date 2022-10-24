@@ -56,3 +56,6 @@ add_subdirectory(chap-29)
 add_subdirectory(chap-30)
 add_subdirectory(chap-34)
 
+add_subdirectory(mytest-1)
+add_subdirectory(myhomework)
+

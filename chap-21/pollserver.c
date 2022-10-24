@@ -14,6 +14,7 @@ int main(int argc, char **argv) {
     //初始化pollfd数组，这个数组的第一个元素是listen_fd，其余的用来记录将要连接的connect_fd
     struct pollfd event_set[INIT_SIZE];
     event_set[0].fd = listen_fd;
+    // POLLRDNORM 表示非带外数据的可读，带外数据，比如系统内核发出的中断信号
     event_set[0].events = POLLRDNORM;
 
     // 用-1表示这个数组位置还没有被占用

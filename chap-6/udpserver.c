@@ -14,6 +14,7 @@ static void recvfrom_int(int signo) {
 
 int main(int argc, char **argv) {
     int socket_fd;
+    // 创建 udp server，重点是 type 参数为 SOCK_DGRAM
     socket_fd = socket(AF_INET, SOCK_DGRAM, 0);
 
     struct sockaddr_in server_addr;
@@ -28,11 +29,15 @@ int main(int argc, char **argv) {
     char message[MAXLINE];
     count = 0;
 
+    // 响应 ctrl + c 退出信号
     signal(SIGINT, recvfrom_int);
+    signal(SIGTERM, recvfrom_int);
 
+    // udp client 的 ip 和 port
     struct sockaddr_in client_addr;
     client_len = sizeof(client_addr);
     for (;;) {
+        // 接收到 client 的 message
         int n = recvfrom(socket_fd, message, MAXLINE, 0, (struct sockaddr *) &client_addr, &client_len);
         message[n] = 0;
         printf("received %d bytes: %s\n", n, message);
@@ -40,6 +45,7 @@ int main(int argc, char **argv) {
         char send_line[MAXLINE];
         sprintf(send_line, "Hi, %s", message);
 
+        // 发送回 client
         sendto(socket_fd, send_line, strlen(send_line), 0, (struct sockaddr *) &client_addr, client_len);
 
         count++;

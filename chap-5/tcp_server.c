@@ -2,6 +2,7 @@
 
 void read_data(int sockfd) {
     ssize_t n;
+    // 一次读取数据的大小
     char buf[1024];
 
     int time = 0;

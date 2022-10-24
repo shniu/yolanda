@@ -1,8 +1,10 @@
 #include "lib/common.h"
 
+// 定义应用程序发送数据的大小，可能比操作系统内核的发送缓冲区大
 # define MESSAGE_SIZE 102400
 
 void send_data(int sockfd) {
+    // 分配内存，并初始化
     char *query;
     query = malloc(MESSAGE_SIZE + 1);
     for (int i = 0; i < MESSAGE_SIZE; i++) {
@@ -10,6 +12,7 @@ void send_data(int sockfd) {
     }
     query[MESSAGE_SIZE] = '\0';
 
+    // 复制指针，cp 和 query 指向一个地方
     const char *cp;
     cp = query;
     size_t remaining = strlen(query);

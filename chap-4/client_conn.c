@@ -4,6 +4,7 @@
 #include <netinet/in.h>
 #include <strings.h>
 #include <arpa/inet.h>
+#include <unistd.h>
 
 int make_conn(char *srv_host, uint16_t srv_port) {
     int sockfd;
@@ -40,5 +41,6 @@ int make_conn(char *srv_host, uint16_t srv_port) {
 int main(int argc, char **argv) {
     int connfd = make_conn("127.0.0.1", 12345);
     printf("connfd = %d", connfd);
+    close(connfd);
     exit(0);
 }
